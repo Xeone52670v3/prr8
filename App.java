@@ -1,45 +1,45 @@
 import java.util.Scanner;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         
-        String input = getInput(scn);
+        String vvod = vzVvod(scn);
         
-        System.out.println("Choose a function:");
-        System.out.println("1. Reverse the entire string");
-        System.out.println("2. Reverse each word in the string");
-        int choice = scn.nextInt();
+        System.out.println("Choose function:");
+        System.out.println("1. Flip all line");
+        System.out.println("2. Flip every word");
+        int vibor = scn.nextInt();
         scn.nextLine();
         
-        if (choice == 1) {
-            System.out.println("Reversed string: " + reverseString(input));
-        } else if (choice == 2) {
-            System.out.println("Reversed words: " + reverseWords(input));
+        if (vibor == 1) {
+            System.out.println("Flipped line: " + obratnaStroka(vvod));
+        } else if (vibor == 2) {
+            System.out.println("Flipped words: " + obratniSlova(vvod));
         } else {
-            System.out.println("Invalid choice.");
+            System.out.println("Incorrect choose");
         }
         
         scn.close();
     }
 
-    public static String getInput(Scanner scanner) {
-        String input;
+    public static String vzVvod(Scanner scanner) {
+        String vvod;
         while (true) {
-            System.out.print("Enter a string with at least 2 words (each word must be at least 3 characters long): ");
-            input = scanner.nextLine();
-            String[] words = input.split(" ");
-            if (words.length >= 2 && wordsCheck(words)) {
+            System.out.print("Enter line with 2 words");
+            vvod = scanner.nextLine();
+            String[] slova = vvod.split(" ");
+            if (slova.length >= 2 && slovaCheck(slova)) {
                 break;
             } else {
-                System.out.println("The string must contain at least 2 words (each word must be at least 3 characters long).");
+                System.out.println("Line needs at least 2 words");
             }
         }
-        return input;
+        return vvod;
     }
 
-    private static boolean wordsCheck(String[] words) {
-        for (String word : words) {
+    private static boolean slovaCheck(String[] slova) {
+        for (String word : slova) {
             if (word.length() < 3) {
                 return false;
             }
@@ -47,24 +47,24 @@ public class App {
         return true;
     }
 
-    public static String reverseString(String input) {
-        char[] chars = input.toCharArray();
-        int left = 0, right = chars.length - 1;
-        while (left < right) {
-            char temp = chars[left];
-            chars[left] = chars[right];
-            chars[right] = temp;
-            left++;
-            right--;
+    public static String obratnaStroka(String vvod) {
+        char[] sym = vvod.toCharArray();
+        int levo = 0, pravo = sym.length - 1;
+        while (levo < pravo) {
+            char temp = sym[levo];
+            sym[levo] = sym[pravo];
+            sym[pravo] = temp;
+            levo++;
+            pravo--;
         }
-        return new String(chars);
+        return new String(sym);
     }
 
-    public static String reverseWords(String input) {
-        String[] words = input.split(" ");
+    public static String obratniSlova(String vvod) {
+        String[] slova = vvod.split(" ");
         StringBuilder reversed = new StringBuilder();
-        for (String word : words) {
-            reversed.append(reverseString(word)).append(" ");
+        for (String word : slova) {
+            reversed.append(obratnaStroka(word)).append(" ");
         }
         return reversed.toString().trim();
     }
